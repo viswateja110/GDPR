@@ -37,8 +37,10 @@
             </ul>
         </div>
     </nav>
-   <h3 class="center"> dashboard</h1>
-   <div class="container">
+   <h3 class="center"> Dashboard</h1>
+   <hr width="50%" class="center"/>
+   <p class="center">Choose a Category to take assessment</p>
+   <div class="">
    <div class="row" >
         <?php
             require_once('config.php');
@@ -47,8 +49,16 @@
             $res=mysqli_query($con,$sql);
             if($res){
                 while ($row=mysqli_fetch_row($res)){
-                    echo "<div class='col l3' >
-                    <a class='waves-effect waves-light btn-large truncate' style='font-size:10px; margin-left=-100px;'>" .$row[1]. "</a></div>";
+                    echo ' <div class="col s12 m3">
+                    <div class="card small blue-grey darken-1 center">
+                      <div class="card-content white-text">
+                        <span class="card-title">'.$row[1].'</span>
+                      </div>
+                      <div class="card-action">
+                        <a href="assessment.php?assessid='.$row[0].'">proceed</a>
+                      </div>
+                    </div>
+                  </div>';
                 }
             }
             ?>
