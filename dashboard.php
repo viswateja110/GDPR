@@ -37,7 +37,24 @@
             </ul>
         </div>
     </nav>
-   <h1> dashboard</h1>
+   <h3 class="center"> dashboard</h1>
+   <div class="container">
+   <div class="row" >
+        <?php
+            require_once('config.php');
+
+            $sql="SELECT * FROM category";
+            $res=mysqli_query($con,$sql);
+            if($res){
+                while ($row=mysqli_fetch_row($res)){
+                    echo "<div class='col l3' >
+                    <a class='waves-effect waves-light btn-large truncate' style='font-size:10px; margin-left=-100px;'>" .$row[1]. "</a></div>";
+                }
+            }
+            ?>
+    </div>
+    </div>
+
 
 
     <footer class="page-footer blue-grey darken-4">
