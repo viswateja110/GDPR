@@ -61,8 +61,47 @@
 
    <br>
    <div class="container">
-   <div class="row">
+   
+       <?php
+       $sql="SELECT * from questions WHERE categoryid=".$categoryid;
+       if($res=mysqli_query($con,$sql)){
+           $cnt=1;
+          while($row=mysqli_fetch_row($res)){
+              $question=$row[1];
+              $jsonIterator = new RecursiveIteratorIterator(
+                new RecursiveArrayIterator(json_decode($row[3], TRUE)),
+                RecursiveIteratorIterator::SELF_FIRST);
+                
+              echo "<div class='row'>";
+              echo "<h6>".$cnt.") <b>".$row[1]."</b></h4>";
+              foreach ($jsonIterator as $key => $val) {
+                if(is_array($val)) {
+                    #echo "$key:\n";
+                } else {
+                    $sql="SELECT * FROM responses where responseid=".$val;
+                    if($resObj=mysqli_query($con,$sql)){
+                        
+                        while($r=mysqli_fetch_row($resObj)){
+                            echo '<p>
+                            <label>
+                              <input class="with-gap" name="'.$cnt.'" type="radio"  />
+                              <span>'.nl2br($r[1]."\n",false).'</span>
+                            </label>
+                          </p>' ;
+                          
+                        }
+                    }
+                }
+            }
+              echo "</div>";
+              $cnt++;
+          }
+       }
        
+
+
+
+?>
 
     </div>
 </div>
