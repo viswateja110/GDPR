@@ -2,6 +2,7 @@
 <html>
 
 <head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8"></meta>
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
@@ -36,7 +37,10 @@ $total=$_SESSION['cnt']*100-100;
 $resarr=array();
 for($i=0;$i<$_SESSION['cnt']-1;$i++){
 
-    $resarr[$i]=$_POST["".($i+1).""];
+    if(isset($_POST["".($i+1).""])){
+        $resarr[$i]=$_POST["".($i+1).""];
+    }
+    
 
 }
 $sql="SELECT * FROM responses where responseid=";
@@ -52,6 +56,27 @@ foreach($resarr as $x){
 $percentage=($sum/$total)*100;
 echo '<h1 class="center">'.$percentage.'</h1>';
 ?>
+<div class="center" style="margin-top:50px;">
+        <h3>Recommendations To Be Followed</h3>
+        <hr width="50%"/>
+</div>
+<div class="container" style="text-align:justify;">
+    
+        <?php
+            $cnt=1;
+            $sql="SELECT * from recommendation";
+            if($res=mysqli_query($con,$sql)){
+                while($row=mysqli_fetch_row($res)){
+                    echo '<div class="row">';
+                    echo "<h6>".$cnt.") <b>".$row[1]."</b></h6>";
+                    echo '</div>';
+                    $cnt++;
+                }
+            }
+            ?>
+    </div>
+
+</div>
 
 
 

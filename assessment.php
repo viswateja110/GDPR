@@ -75,7 +75,7 @@
                 RecursiveIteratorIterator::SELF_FIRST);
                 
               echo "<div class='row'>";
-              echo "<h6>".$cnt.") <b>".$row[1]."</b></h4>";
+              echo "<h6>".$cnt.") <b>".$row[1]."</b></h6>";
               foreach ($jsonIterator as $key => $val) {
                 if(is_array($val)) {
                     #echo "$key:\n";
