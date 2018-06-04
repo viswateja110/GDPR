@@ -25,7 +25,7 @@
             height: 300px;
         }
     </style>
-</head>"
+</head>
 
 <body bgcolor="#eeeeee" style=" font-family: 'Montserrat', sans-serif;">
     <nav>

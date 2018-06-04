@@ -14,7 +14,9 @@ if($fname=='' || $lname=='' || $email=='' || $mobile=='' || $company=='' || $pos
 else{
     $sql="SELECT * from users where email='$email'";
     $res=mysqli_query($con,$sql);
-    if(!res){
+    $cnt=mysqli_num_rows($res);
+    echo "<h1>".$cnt."</h1>";
+    if($cnt==0){
         $sql="INSERT INTO users (fname,lname,email,mobileno,company,position) VALUES('$fname','$lname','$email','$mobile','$company','$position')";
     if (!mysqli_query($con,$sql)) {
         die('Error: ' . mysqli_error($con));
@@ -26,9 +28,9 @@ else{
     }else{
         echo "home";
     }
-    
+    header("location: dashboard.php");
 }
 mysqli_close($con);
-header("location: dashboard.php");
+
 
 ?>

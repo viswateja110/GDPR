@@ -25,7 +25,7 @@
             height: 300px;
         }
     </style>
-</head>"
+</head>
 
 <body bgcolor="#eeeeee" style=" font-family: 'Montserrat', sans-serif;">
     <nav>
@@ -39,6 +39,7 @@
     </nav>
    
    <?php
+   session_start();
    require_once('config.php');
    $categoryid=$_GET['assessid'];
    $sql="SELECT * from category where categoryid=".$categoryid;
@@ -61,9 +62,10 @@
 
    <br>
    <div class="container">
-   
+   <form action="process.php" method="POST">
        <?php
        $sql="SELECT * from questions WHERE categoryid=".$categoryid;
+       $cnt=0;
        if($res=mysqli_query($con,$sql)){
            $cnt=1;
           while($row=mysqli_fetch_row($res)){
@@ -82,12 +84,23 @@
                     if($resObj=mysqli_query($con,$sql)){
                         
                         while($r=mysqli_fetch_row($resObj)){
-                            echo '<p>
+                            if($r[2]=='radio'){
+                                echo '<p>
                             <label>
-                              <input class="with-gap" name="'.$cnt.'" type="radio"  />
+                              <input class="with-gap" name="'.$cnt.'" type="radio" value='.$r[0].' />
                               <span>'.nl2br($r[1]."\n",false).'</span>
                             </label>
                           </p>' ;
+                            }else{
+                                echo '<p>
+                                <label>
+                                  <input type="checkbox" class="filled-in" name="'.$cnt.'[]" value='.$r[0].' />
+                                  <span>'.nl2br($r[1]."\n",false).'</span>
+                                </label>
+                              </p>' ;
+
+                            }
+                            
                           
                         }
                     }
@@ -96,13 +109,17 @@
               echo "</div>";
               $cnt++;
           }
+          echo '<button class="btn waves-effect waves-light" type="submit" name="action">Submit
+          <i class="material-icons right">send</i>
+        </button>';
        }
+       $_SESSION['cnt']=$cnt;
        
 
 
 
 ?>
-
+</form>
     </div>
 </div>
 
